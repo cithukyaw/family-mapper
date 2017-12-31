@@ -34,7 +34,8 @@ export class HomePage {
       }
 
       this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
-      console.log(position.coords.latitude, position.coords.longitude);
+
+      this.addMarker();
 
     }, (err) => {
       console.log(err);
