@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { AlertController, NavController } from 'ionic-angular';
+import { AlertController, NavController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
@@ -13,7 +13,7 @@ export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public geolocation: Geolocation, public toastCtrl: ToastController) {
 
   }
 
@@ -39,6 +39,13 @@ export class HomePage {
 
     }, (err) => {
       console.log(err);
+      if (err.code === 2) {
+        let toast = this.toastCtrl.create({
+          message: 'No Internet Connection',
+          duration: 3000
+        });
+        toast.present();
+      }
     });
 
   }
