@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { AlertController, NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
 
 declare var google;
@@ -13,7 +13,7 @@ export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public geolocation: Geolocation) {
 
   }
 
@@ -57,16 +57,88 @@ export class HomePage {
 
   }
 
-   addInfoWindow(marker, content) {
+  addInfoWindow(marker, content) {
 
-     let infoWindow = new google.maps.InfoWindow({
-       content: content
-     });
+    let infoWindow = new google.maps.InfoWindow({
+      content: content
+    });
 
-     google.maps.event.addListener(marker, 'click', () => {
-       infoWindow.open(this.map, marker);
-     });
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(this.map, marker);
+    });
 
-   }
+  }
+
+  promptCreateGroup() {
+
+    let prompt = this.alertCtrl.create({
+      title: 'Create Group',
+      message: 'Enter a group name that represents your family or group of friends',
+      inputs: [
+        {
+          name: 'group',
+          placeholder: 'Group Name'
+        },
+        {
+          name: 'name',
+          placeholder: 'Your Name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Create',
+          handler: data => {
+            console.log(data);
+            console.log('Create clicked');
+          }
+        }
+      ]
+    });
+
+    prompt.present();
+
+  }
+
+  promptJoinGroup() {
+
+    let prompt = this.alertCtrl.create({
+      title: 'Join Group',
+      message: 'Enter a group code of your family/friend group. If you don\'t know the code, ask the group owner.',
+      inputs: [
+        {
+          name: 'group',
+          placeholder: 'Group Code'
+        },
+        {
+          name: 'name',
+          placeholder: 'Your Name'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          handler: data => {
+            console.log('Cancel clicked');
+          }
+        },
+        {
+          text: 'Join',
+          handler: data => {
+            console.log(data);
+            console.log('Join clicked');
+          }
+        }
+      ]
+    });
+
+    prompt.present();
+
+  }
 
 }
