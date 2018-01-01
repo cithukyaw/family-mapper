@@ -6,6 +6,7 @@ import { StatusBar } from '@ionic-native/status-bar';
 import { Geolocation } from '@ionic-native/geolocation';
 
 import { MyApp } from './app.component';
+import { GroupService } from './group.service';
 import { HomePage } from '../pages/home/home';
 
 @NgModule({
@@ -26,6 +27,7 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     Geolocation,
+    GroupService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

@@ -1,6 +1,7 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { AlertController, NavController, ToastController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { GroupService } from '../../app/group.service';
 
 declare var google;
 
@@ -13,7 +14,7 @@ export class HomePage {
   @ViewChild('map') mapElement: ElementRef;
   map: any;
 
-  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public geolocation: Geolocation, public toastCtrl: ToastController) {
+  constructor(public navCtrl: NavController, public alertCtrl: AlertController, public geolocation: Geolocation, public toastCtrl: ToastController, private groupService: GroupService) {
 
   }
 
@@ -77,75 +78,11 @@ export class HomePage {
   }
 
   promptCreateGroup() {
-
-    let prompt = this.alertCtrl.create({
-      title: 'Create Group',
-      message: 'Enter a group name that represents your family or group of friends',
-      inputs: [
-        {
-          name: 'group',
-          placeholder: 'Group Name'
-        },
-        {
-          name: 'name',
-          placeholder: 'Your Name'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Create',
-          handler: data => {
-            console.log(data);
-            console.log('Create clicked');
-          }
-        }
-      ]
-    });
-
-    prompt.present();
-
+    this.groupService.createGroup();
   }
 
   promptJoinGroup() {
-
-    let prompt = this.alertCtrl.create({
-      title: 'Join Group',
-      message: 'Enter a group code of your family/friend group. If you don\'t know the code, ask the group owner.',
-      inputs: [
-        {
-          name: 'group',
-          placeholder: 'Group Code'
-        },
-        {
-          name: 'name',
-          placeholder: 'Your Name'
-        },
-      ],
-      buttons: [
-        {
-          text: 'Cancel',
-          handler: data => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Join',
-          handler: data => {
-            console.log(data);
-            console.log('Join clicked');
-          }
-        }
-      ]
-    });
-
-    prompt.present();
-
+    this.groupService.joinGroup();
   }
 
 }
