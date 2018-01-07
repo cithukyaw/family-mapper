@@ -9,6 +9,7 @@ import { IonicStorageModule } from '@ionic/storage';
 
 import { MyApp } from './app.component';
 import { GroupService } from './group.service';
+import { UserService } from './user.service';
 import { HomePage } from '../pages/home/home';
 
 @NgModule({
@@ -30,8 +31,9 @@ import { HomePage } from '../pages/home/home';
     StatusBar,
     SplashScreen,
     Geolocation,
-    GroupService,
     Device,
+    GroupService,
+    UserService,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

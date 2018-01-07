@@ -1,10 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
 
+declare var firebase;
+
 @Injectable()
 export class GroupService {
 
-  constructor(public alertCtrl: AlertController) { }
+  db: any;
+
+  constructor(public alertCtrl: AlertController) {
+    this.db = firebase.database();
+  }
 
   createGroup() {
 
@@ -32,7 +38,13 @@ export class GroupService {
           text: 'Create',
           handler: data => {
             console.log(data);
-            console.log('Create clicked');
+
+            let newGroupKey = this.db.ref().child('groups').push().key;
+            let response = this.db.ref('groups/' + newGroupKey).set({
+              name: data.group
+            });
+
+            console.log(response);
           }
         }
       ]
