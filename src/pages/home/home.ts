@@ -30,7 +30,7 @@ export class HomePage {
 
       let mapOptions = {
         center: latLng,
-        zoom: 15,
+        zoom: 16,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
