@@ -24,18 +24,23 @@ export class UserService {
   load() {
     // Check if userId exists
     this.storage.get('user').then((value) => {
+      let userId = value;
       if (value === null) {
         console.log('New user!');
 
         // save user information if not exists
-        let userId = this.db.ref().child('users').push().key;
+        userId = this.db.ref().child('users').push().key;
+        this.storage.set('user', userId);
+
         let uuid = this.device.uuid;
         if (uuid === null) {
           uuid = this.createGuid();
         }
 
         this.db.ref('users/' + userId).set({
-          name: uuid
+          name: uuid,
+          created: Date.now(),
+          updated: Date.now()
         });
 
         this.db.ref('users/' + userId + '/device').set({
@@ -48,10 +53,22 @@ export class UserService {
             isVirtual   : this.device.isVirtual,
             cordova     : this.device.cordova
         });
-
-        this.storage.set('user', userId);
       } else {
-        console.log('Existing user!');
+        console.log('Existing user!', userId);
+
+        this.db.ref('users/' + userId).update({
+          updated: Date.now()
+        });
+
+        this.db.ref('users/' + userId + '/device').update({
+            platform    : this.device.uuid,
+            model       : this.device.model,
+            serial      : this.device.serial,
+            version     : this.device.version,
+            manufacturer: this.device.manufacturer,
+            isVirtual   : this.device.isVirtual,
+            cordova     : this.device.cordova
+        });
       }
     });
 
