@@ -21,11 +21,7 @@ export class GroupService {
         {
           name: 'group',
           placeholder: 'Group Name'
-        },
-        {
-          name: 'name',
-          placeholder: 'Your Name'
-        },
+        }
       ],
       buttons: [
         {
@@ -63,11 +59,7 @@ export class GroupService {
         {
           name: 'group',
           placeholder: 'Group Code'
-        },
-        {
-          name: 'name',
-          placeholder: 'Your Name'
-        },
+        }
       ],
       buttons: [
         {
